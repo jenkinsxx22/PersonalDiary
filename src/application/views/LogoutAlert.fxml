@@ -32,12 +32,12 @@
    <bottom>
       <HBox prefHeight="61.0" prefWidth="441.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnOK" mnemonicParsing="false" onAction="#okLogout" prefHeight="48.0" prefWidth="111.0" styleClass="actionbuttons" text="Yes" textAlignment="CENTER">
+            <Button fx:id="btnOK" mnemonicParsing="false" onAction="#okLogout" prefHeight="48.0" prefWidth="111.0" styleClass="actionbuttonsAlert" text="Yes" textAlignment="CENTER">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#CancelOperation" prefHeight="48.0" prefWidth="111.0" styleClass="actionbuttons" text="Cancel" textAlignment="CENTER">
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#CancelOperation" prefHeight="48.0" prefWidth="111.0" styleClass="actionbuttonsAlert" text="Cancel" textAlignment="CENTER">
                <font>
                   <Font size="16.0" />
                </font>
