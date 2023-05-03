@@ -1,0 +1,32 @@
+.buttons{
+	-fx-background-color: transparent;
+	-fx-background-radius: 0px;
+}
+.button:hover{
+	-fx-background-color: #8888ff;
+	-fx-background-radius: 0px;
+	-fx-border-color: #B20837;
+	-fx-border-width: 0px 0px 4px 0px;
+	-fx-border-style: solid;
+}
+.actionbuttons{
+	-fx-background-color: transparent;
+	-fx-background-radius: 0px;
+}
+.actionbuttons:hover{
+	-fx-background-color: #8888ff;
+	-fx-background-radius: 0px;
+	-fx-border-color: #0000ff;
+	-fx-border-width: 4px 0px 0px 0px;
+	-fx-border-style: solid;
+}
+
+.contentPane{
+	-fx-background-color: #fff;
+}
+.contentMain{
+	-fx-background-color: #e8e8ff;
+}
+.topPane{
+	-fx-background-color: #aeaeff;
+}
