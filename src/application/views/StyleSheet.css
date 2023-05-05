@@ -40,4 +40,37 @@
 }
 .topPane{
 	-fx-background-color: #aeaeff;
+	-fx-border-color: #4848ff;
+		-fx-border-width: 1px 1px 1px 1px;
+	-fx-border-style: solid;
+}
+.inputitems{
+		-fx-background-color: #8888ff;
+	-fx-background-radius: 0px;
+	-fx-border-color: #4848ff;
+	-fx-border-width: 1px 1px 1px 1px;
+	-fx-border-style: solid;
+	
+}
+.inputitems:hover{
+	-fx-background-color: #b0b0ff;
+	-fx-background-radius: 0px;
+	-fx-border-color: #8484ff;
+	-fx-border-width:  1px 1px 1px 1px;
+	-fx-border-style: solid;
+}
+
+.actionbuttonsGeneral{
+	-fx-background-color: #4848ff;
+	-fx-background-radius: 0px;
+	-fx-border-color: #0000ff;
+	-fx-border-width: 1px 1px 1px 1px;
+	-fx-border-style: solid;
+}
+.actionbuttonsGeneral:hover{
+	-fx-background-color: #8484ff;
+	-fx-background-radius: 0px;
+	-fx-border-color: #0000ff;
+	-fx-border-width: 1px 1px 1px 1px;
+	-fx-border-style: solid;
 }

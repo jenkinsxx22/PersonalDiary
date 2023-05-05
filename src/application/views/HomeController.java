@@ -1,9 +1,20 @@
 package application.views;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import application.beans.User;
+import application.model.UserContents;
+import application.service.UserContentService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +41,10 @@ public class HomeController implements Initializable{
 	@FXML
 	private Button btnProfile;
 	@FXML
+	private Button btnCreate;
+	@FXML
+	private Button btnViewAll;
+	@FXML
 	private Button btnLogout;
 	@FXML
 	private Button btnClose;
@@ -42,23 +57,41 @@ public class HomeController implements Initializable{
 			"	-fx-border-style: solid;";
 	private String  StyleSheetReleased="-fx-background-color: transparent;\r\n" + 
 			"	-fx-background-radius: 0px;";
-	
+	private User user;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		
-	}
-	  
+		// TODO Auto-generated method stub
+			btnHome.setStyle(StyleSheetClicked);
+			btnProfile.setStyle(StyleSheetReleased);
+			btnCreate.setStyle(StyleSheetReleased);
+			btnViewAll.setStyle(StyleSheetReleased);
+			try {
+				FXMLLoader loader =new FXMLLoader(getClass().getResource("HomeContents.fxml"));			
+				Parent fxml = (Parent) loader.load();
+				HomeContentsController controller = (HomeContentsController) loader.getController();
+				contentPane.getChildren().removeAll();
+				contentPane.getChildren().setAll(fxml);
+				controller.setUser(user);
+				 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	@FXML
 	private void goHome(ActionEvent event) {
 		btnHome.setStyle(StyleSheetClicked);
 		btnProfile.setStyle(StyleSheetReleased);
+		btnCreate.setStyle(StyleSheetReleased);
+		btnViewAll.setStyle(StyleSheetReleased);
 		try {
 			FXMLLoader loader =new FXMLLoader(getClass().getResource("HomeContents.fxml"));			
 			Parent fxml = (Parent) loader.load();
 			HomeContentsController controller = (HomeContentsController) loader.getController();
 			contentPane.getChildren().removeAll();
 			contentPane.getChildren().setAll(fxml);
+			controller.setUser(user);
 			 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -71,6 +104,8 @@ public class HomeController implements Initializable{
 	private void goProfile(ActionEvent event) {
 		btnHome.setStyle(StyleSheetReleased);
 		btnProfile.setStyle(StyleSheetClicked);
+		btnCreate.setStyle(StyleSheetReleased);
+		btnViewAll.setStyle(StyleSheetReleased);
 
 		try {
 			FXMLLoader loader =new FXMLLoader(getClass().getResource("ProfileContents.fxml"));			
@@ -111,5 +146,80 @@ public class HomeController implements Initializable{
 	private void goShowActivities(ActionEvent event) {
 		
 	}
+	@FXML
+	private void goCreate(ActionEvent event) {
+		btnHome.setStyle(StyleSheetReleased);
+		btnProfile.setStyle(StyleSheetReleased);
+		btnCreate.setStyle(StyleSheetClicked);
+		btnViewAll.setStyle(StyleSheetReleased);
+		try {
+			FXMLLoader loader =new FXMLLoader(getClass().getResource("CreateContents.fxml"));			
+			Parent fxml = (Parent) loader.load();
+//			CreateContentsController controller = (CreateContentsController) loader.getController();
+			contentPane.getChildren().removeAll();
+			contentPane.getChildren().setAll(fxml);
+			 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+	}
+	@FXML
+	private void goView(ActionEvent event) {
+		btnHome.setStyle(StyleSheetReleased);
+		btnProfile.setStyle(StyleSheetReleased);
+		btnCreate.setStyle(StyleSheetReleased);
+		btnViewAll.setStyle(StyleSheetClicked);
+		try {
+			FXMLLoader loader =new FXMLLoader(getClass().getResource("ViewContents.fxml"));			
+			Parent fxml = (Parent) loader.load();
+//			ViewContentsController controller = (ViewContentsController) loader.getController();
+			contentPane.getChildren().removeAll();
+			contentPane.getChildren().setAll(fxml);
+//			controller.setContentList(getUserContents());
+			 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public void setUser(User user) {
+		this.user=user;
+		
+	}
+
+	public List<UserContents> getUserContents(String strSearch, int recStart, int recEnd){
+		 User userBean = getLoginBean();
+		List<UserContents> resList = new ArrayList<UserContents>();
+		UserContentService contentservice = new UserContentService();
+		resList = contentservice.GetUserContentsByEmailPagination(userBean.getUserName(),strSearch,recStart,recEnd);
+		
+		resList.forEach(u->{
+			System.out.println("[getUserContents] Title: "+u.getTitle() +" Body:"+u.getBody());
+		});
+		
+		return resList;
+				
+	}
+	
+	public User getLoginBean() {
+		
+		 File loginfile = new File("logindetails.xml");
+		 User logBean=new User(); 
+
+		 JAXBContext logContext;
+		try {
+			logContext = JAXBContext.newInstance(User.class);
+			Unmarshaller logUnmarshall = logContext.createUnmarshaller();
+			logBean=(User) logUnmarshall.unmarshal(loginfile);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return logBean;
+			
+	}
 }
